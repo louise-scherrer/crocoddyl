@@ -40,7 +40,7 @@ class DifferentialActionModelFreeFwdDynamicsExtForcesTpl : public DifferentialAc
   typedef DifferentialActionDataAbstractTpl<Scalar> DifferentialActionDataAbstract;
   typedef typename MathBase::VectorXs VectorXs;
   typedef typename MathBase::MatrixXs MatrixXs;
-  typedef pinocchio::container::aligned_vector<pinocchio::ForceTpl<Scalar> > ForceAlignedVector; // is typename needed?
+  typedef pinocchio::container::aligned_vector<pinocchio::ForceTpl<Scalar> > ForceAlignedVector; // is typename needed? probably not
 
   DifferentialActionModelFreeFwdDynamicsExtForcesTpl(boost::shared_ptr<StateMultibody> state,
                                             boost::shared_ptr<ActuationModelAbstract> actuation,
@@ -49,17 +49,15 @@ class DifferentialActionModelFreeFwdDynamicsExtForcesTpl : public DifferentialAc
   virtual ~DifferentialActionModelFreeFwdDynamicsExtForcesTpl();
 
   virtual void calc(const boost::shared_ptr<DifferentialActionDataAbstract>& data, const Eigen::Ref<const VectorXs>& x,
-                    const Eigen::Ref<const VectorXs>& u, 
-                    const ForceAlignedVector extforces);
+                    const Eigen::Ref<const VectorXs>& u);
   virtual void calcDiff(const boost::shared_ptr<DifferentialActionDataAbstract>& data,
-                        const Eigen::Ref<const VectorXs>& x, const Eigen::Ref<const VectorXs>& u, 
-                        const ForceAlignedVector extforces);
+                        const Eigen::Ref<const VectorXs>& x, const Eigen::Ref<const VectorXs>& u);
   virtual boost::shared_ptr<DifferentialActionDataAbstract> createData();
   virtual bool checkData(const boost::shared_ptr<DifferentialActionDataAbstract>& data);
 
   virtual void quasiStatic(const boost::shared_ptr<DifferentialActionDataAbstract>& data, Eigen::Ref<VectorXs> u,
                            const Eigen::Ref<const VectorXs>& x, const std::size_t& maxiter = 100,
-                           const Scalar& tol = Scalar(1e-9)); # TO finish, what here?
+                           const Scalar& tol = Scalar(1e-9)); // TO finish, what here?
 
   const boost::shared_ptr<ActuationModelAbstract>& get_actuation() const;
   const boost::shared_ptr<CostModelSum>& get_costs() const;

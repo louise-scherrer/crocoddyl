@@ -108,9 +108,9 @@ void DifferentialActionModelFreeFwdDynamicsExtForcesTpl<Scalar>::calcDiff(
 
   // Computing the dynamics derivatives
   if (with_armature_) {
-    pinocchio::computeABADerivatives(pinocchio_, d->pinocchio, q, v, d->multibody.actuation->tau, d->Fx.leftCols(nv),
-                                     d->Fx.rightCols(nv), d->pinocchio.Minv,
-                                     extforces_);
+    pinocchio::computeABADerivatives(pinocchio_, d->pinocchio, q, v, d->multibody.actuation->tau, 
+                                     extforces_, d->Fx.leftCols(nv),
+                                     d->Fx.rightCols(nv), d->pinocchio.Minv);
     d->Fx.noalias() += d->pinocchio.Minv * d->multibody.actuation->dtau_dx;
     d->Fu.noalias() = d->pinocchio.Minv * d->multibody.actuation->dtau_du;
   } else { //TODO: adapt this to take extforces_ into account
@@ -127,7 +127,7 @@ void DifferentialActionModelFreeFwdDynamicsExtForcesTpl<Scalar>::calcDiff(
 
 template <typename Scalar>
 boost::shared_ptr<DifferentialActionDataAbstractTpl<Scalar> >
-DifferentialActionModelFreeFwdDynamicsExtFOrcesTpl<Scalar>::createData() {
+DifferentialActionModelFreeFwdDynamicsExtForcesTpl<Scalar>::createData() {
   return boost::allocate_shared<Data>(Eigen::aligned_allocator<Data>(), this);
 }
 
@@ -142,7 +142,7 @@ bool DifferentialActionModelFreeFwdDynamicsExtForcesTpl<Scalar>::checkData(
   }
 }
 template <typename Scalar>
-void DifferentialActionModelFreeFwdDynamicsExtForcesTpl<Scalar>::quasiStatic( #TO finish
+void DifferentialActionModelFreeFwdDynamicsExtForcesTpl<Scalar>::quasiStatic(
     const boost::shared_ptr<DifferentialActionDataAbstract>& data, Eigen::Ref<VectorXs> u,
     const Eigen::Ref<const VectorXs>& x, const std::size_t&, const Scalar&) {
   if (static_cast<std::size_t>(u.size()) != nu_) {
@@ -162,7 +162,7 @@ void DifferentialActionModelFreeFwdDynamicsExtForcesTpl<Scalar>::quasiStatic( #T
 
   d->pinocchio.tau =
       pinocchio::rnea(pinocchio_, d->pinocchio, q, VectorXs::Zero(state_->get_nv()), 
-                      VectorXs::Zero(state_->get_nv()), extforces_); // CHECK
+                      VectorXs::Zero(state_->get_nv()), extforces_);
 
   d->tmp_xstatic.head(state_->get_nq()) = q;
   actuation_->calc(d->multibody.actuation, d->tmp_xstatic, VectorXs::Zero(nu_));
