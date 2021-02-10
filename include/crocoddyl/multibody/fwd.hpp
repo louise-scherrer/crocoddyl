@@ -9,6 +9,8 @@
 #ifndef CROCODDYL_MULTIBODY_FWD_HPP_
 #define CROCODDYL_MULTIBODY_FWD_HPP_
 
+#include <pinocchio/spatial/force.hpp> // might be needed since included in impulse-base.hpp and multiple-impulses uses ForceIterator
+
 namespace crocoddyl {
 
 // actuation
