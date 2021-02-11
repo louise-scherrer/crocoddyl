@@ -25,7 +25,7 @@ void exposeDifferentialActionFreeFwdDynamicsExtForces() {
       "CAUTION: exterior forces only dealt with in the case of ABA use, not yet for the custom implementation",
       bp::init<boost::shared_ptr<StateMultibody>, boost::shared_ptr<ActuationModelAbstract>,
                boost::shared_ptr<CostModelSum>, 
-               boost::shared_ptr<ForceAlignedVector> >(bp::args("self", "state", "actuation", "costs", "extforces"),
+               const Eigen::Ref<const Eigen::VectorXd>& >(bp::args("self", "state", "actuation", "costs", "extforces"),
                                                  "Initialize the free forward-dynamics action model.\n\n"
                                                  ":param state: multibody state\n"
                                                  ":param actuation: abstract actuation model\n"
