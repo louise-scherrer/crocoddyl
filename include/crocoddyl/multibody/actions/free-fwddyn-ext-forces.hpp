@@ -45,7 +45,7 @@ class DifferentialActionModelFreeFwdDynamicsExtForcesTpl : public DifferentialAc
   DifferentialActionModelFreeFwdDynamicsExtForcesTpl(boost::shared_ptr<StateMultibody> state,
                                             boost::shared_ptr<ActuationModelAbstract> actuation,
                                             boost::shared_ptr<CostModelSum> costs,
-                                            const Eigen::Ref<const VectorXs>& extforces);
+                                            const ForceAlignedVector& extforces);
   virtual ~DifferentialActionModelFreeFwdDynamicsExtForcesTpl();
 
   virtual void calc(const boost::shared_ptr<DifferentialActionDataAbstract>& data, const Eigen::Ref<const VectorXs>& x,
