@@ -16,7 +16,7 @@ namespace crocoddyl {
 namespace python {
 
 void exposeDifferentialActionFreeFwdDynamicsExtForces() {
-  typedef pinocchio::ForceTpl<double,0> Forced;
+  typedef pinocchio::ForceTpl<double,0> Force;
   bp::class_<DifferentialActionModelFreeFwdDynamicsExtForces, bp::bases<DifferentialActionModelAbstract> >(
       "DifferentialActionModelFreeFwdDynamicsExtForces",
       "WORK IN PROGRESS (Feb.2021) \n"
@@ -28,7 +28,7 @@ void exposeDifferentialActionFreeFwdDynamicsExtForces() {
       "CAUTION: exterior forces only dealt with in the case of ABA use, not yet for the custom implementation",
       bp::init<boost::shared_ptr<StateMultibody>, boost::shared_ptr<ActuationModelAbstract>,
                boost::shared_ptr<CostModelSum>, 
-               PINOCCHIO_STD_VECTOR_WITH_EIGEN_ALLOCATOR(Forced) >(bp::args("self", "state", "actuation", "costs", "extforces"),
+               PINOCCHIO_STD_VECTOR_WITH_EIGEN_ALLOCATOR(Force) >(bp::args("self", "state", "actuation", "costs", "extforces"),
                                                  "Initialize the free forward-dynamics action model.\n\n"
                                                  ":param state: multibody state\n"
                                                  ":param actuation: abstract actuation model\n"

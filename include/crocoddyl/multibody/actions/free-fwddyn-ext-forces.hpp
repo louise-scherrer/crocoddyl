@@ -40,7 +40,8 @@ class DifferentialActionModelFreeFwdDynamicsExtForcesTpl : public DifferentialAc
   typedef DifferentialActionDataAbstractTpl<Scalar> DifferentialActionDataAbstract;
   typedef typename MathBase::VectorXs VectorXs;
   typedef typename MathBase::MatrixXs MatrixXs;
-  typedef pinocchio::container::aligned_vector<pinocchio::ForceTpl<Scalar> > ForceAlignedVector; // is typename needed? probably not
+  typedef pinocchio::ForceTpl<Scalar> Force;
+  typedef PINOCCHIO_STD_VECTOR_WITH_EIGEN_ALLOCATOR(Force) ForceAlignedVector; // is typename needed? probably not
 
   DifferentialActionModelFreeFwdDynamicsExtForcesTpl(boost::shared_ptr<StateMultibody> state,
                                             boost::shared_ptr<ActuationModelAbstract> actuation,
